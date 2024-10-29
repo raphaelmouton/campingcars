@@ -1,0 +1,20 @@
+@font-face {
+    font-family: 'Afacad';
+    src: 
+        url('./font/Afacad.ttf') format('truetype');
+    font-weight: 400;
+    font-style: normal;
+    font-display: swap; /* Utiliser 'swap' pour basculer vers la police dès qu'elle est chargée */
+}
+
+@font-face {
+    font-family: 'Afacad-Bold';
+    src: 
+        url('./font/Afacad-Bold.ttf') format('truetype');
+    font-weight: 600;
+    font-style: normal;
+    font-display: swap; /* Utiliser 'swap' pour basculer vers la police dès qu'elle est chargée */
+}
+
+
+

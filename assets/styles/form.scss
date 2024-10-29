@@ -1,0 +1,81 @@
+.form-control {
+    font-weight: 500;
+    font-size: 1rem;
+    border: 0;
+    border-bottom: 1px solid $dark;
+    border-radius: 0;
+    background-color: transparent;
+    text-align: center;
+    color: $dark;
+}
+
+.form-control::placeholder {
+    color: $dark;
+    background-color: $grey-light;
+}
+
+.form-control option {
+    background-color: $grey-light;
+    color: $dark;
+    font-weight: 600;
+}
+
+.form-control:focus {
+    background-color: $grey-light;
+    color: $dark;
+}
+
+.form-control:not(:placeholder-shown) {
+    background-color: $grey-light;
+    color: $dark;
+}
+
+.form-control:focus {
+    border-color: $orange;
+    box-shadow: none;
+}
+
+label {
+    color: $dark;
+    font-weight: 600;
+    font-size: 1.3rem;
+    margin-bottom: 0;
+}
+
+.account, .all-announces {
+    .form-control {
+        border-bottom: 1px solid $white;
+    }
+    .form-control::placeholder {
+        color: $white;
+        background-color: $dark;
+    }
+    
+    .form-control option {
+        background-color: $dark;
+        color: $white;
+        font-weight: 600;
+    }
+    
+    .form-control:focus {
+        background-color: $dark;
+        color: $white;
+    }
+    
+    .form-control:not(:placeholder-shown) {
+        background-color: $dark;
+        color: $white;
+    }
+    
+    .form-control:focus {
+        border-color: $orange;
+        box-shadow: none;
+    }
+    
+    label {
+        color: $white;
+        font-weight: 600;
+        font-size: 1.3rem;
+        margin-bottom: 0;
+    }
+}

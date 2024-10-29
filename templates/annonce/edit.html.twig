@@ -1,0 +1,25 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Log in!{% endblock %}
+
+{% block body %}
+<div class="new-announce">
+    <div class="container-fluid container-colored all-announces">
+        <div class="container pt-5">
+            <div class="row p-0 m-0">
+                <div class="col-lg-6 col-md-4 col-sm-12 p-0 position-relative">
+                    <img src="{{ asset('/images/bkg4.jpg') }}" alt="image-accueil" class="img-fluid img-top"/>
+                </div>
+                <div class="col-lg-6 col-md-8 col-sm-12 my-auto text-center">
+                    <h1>Ajouter une annonce, <br>c'est simple & gratuit.</h1>
+                </div>
+            </div>
+        </div>
+    </div>
+	<div class="container-fluid pb-5">
+		<div class="container container-colored-light pb-5">
+                {{ include('annonce/_form.html.twig', {'button_label': 'Update'}) }}
+        </div>
+    </div>
+</div>
+{% endblock %}

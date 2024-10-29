@@ -1,0 +1,196 @@
+{{ form_start(form, { 'attr': { 'enctype': 'multipart/form-data' } }) }}
+
+<div class="form-steps mt-5">
+    <!-- Step 1 -->
+    <div class="step step-1">
+        <div class="row 
+        mx-auto text-center">
+            <div class="col-4">
+                {{ form_row(form.Region, { 'attr': { 'id': 'annonces_Region' } }) }}
+            </div>
+            <div class="col-4">
+                {{ form_row(form.Ville, { 'attr': { 'id': 'annonces_Ville' } }) }}
+                <p class="error-message" id="error-ville" style="display:none;color:red;">Merci de remplir ce champ</p>
+            </div>
+            <div class="col-4">
+                {{ form_row(form.TypeVehicule, { 'attr': { 'id': 'annonces_TypeVehicule' } }) }}
+            </div>        
+            <div class="col-6">
+                {{ form_row(form.Titre, { 'attr': { 'id': 'annonces_Titre' } }) }}
+                <p class="error-message" id="error-titre" style="display:none;color:red;">Merci de remplir ce champ</p>
+            </div>             
+            <div class="col-6">
+                {{ form_row(form.Etat, { 'attr': { 'id': 'annonces_Etat' } }) }}
+            </div>                  
+            <div class="col-12">
+                {{ form_row(form.Description, { 'attr': { 'id': 'annonces_Description' } }) }}
+                <p class="error-message" id="error-description" style="display:none;color:red;">Merci de remplir ce champ</p>
+            </div>      
+            <div class="col-6">
+                {{ form_row(form.Prix, { 'attr': { 'id': 'annonces_Prix' } }) }}
+                <p class="error-message" id="error-prix" style="display:none;color:red;">Merci d'entrer un prix valide</p>
+            </div>     
+            <div class="col-6">
+                {{ form_row(form.KM, { 'attr': { 'id': 'annonces_KM' } }) }}
+                <p class="error-message" id="error-km" style="display:none;color:red;">Merci d'entrer un nombre valide</p>
+            </div>    
+            <div class="col-6">
+                {{ form_row(form.DateCT, { 'attr': { 'id': 'annonces_DateCT' } }) }}
+                <p class="error-message" id="error-datect" style="display:none;color:red;">Merci de remplir la date</p>
+            </div>
+            <div class="col-6">
+                {{ form_row(form.NbrCouchage) }}
+            </div>
+            <div class="text-right col-12 mt-3">
+                <button type="button" class="btn btn-primary" id="nextStep1"><i id="icon" class="fa-solid fa-angle-right"></i> Ajouter des photos</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Step 2 -->
+    <div class="step step-2" style="display: none;">
+        <div class="row mx-auto text-center">
+            <div class="col-12 mb-5">
+                <h1>Ajoutons quelques photos...</h1>
+            </div>
+            {% for i in 1..6 %}
+                <div class="col-lg-4 col-md-6">
+                    <div class="image-upload">
+                        {% set imageName = attribute(annonce, 'getImageName' ~ i) %}
+                        {% if imageName %}
+                            {% set imageSrc = asset('/images/annonces/' ~ imageName) %}
+                        {% else %}
+                            {% set imageSrc = asset('images/add-image.png') %}
+                        {% endif %}
+                        {{ form_widget(attribute(form, 'imageFile' ~ i), { 'attr': { 'class': 'hidden-file-input', 'id': 'annonce_imageFile' ~ i ~ '_file' } }) }}
+
+                        <img class="previewImage" id="previewImage{{ i }}" src="{{ imageSrc }}" alt="Image {{ i }}" width="200" height="200" />
+                    </div>
+                </div>
+            {% endfor %}
+            <div class="text-right col-12 mt-5">
+                <button type="button" class="btn btn-secondary float-left" id="prevStep2">
+                    <i id="icon" class="fa-solid fa-angle-left"></i> Previous
+                </button>
+                <button type="button" class="btn btn-primary float-right" id="submitForm"><i id="icon" class="fa-solid fa-angle-right"></i> Submit</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+{{ form_end(form) }}
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const step1 = document.querySelector('.step-1');
+    const step2 = document.querySelector('.step-2');
+    
+    const nextStep1 = document.getElementById('nextStep1');
+    const prevStep2 = document.getElementById('prevStep2');
+    const submitForm = document.getElementById('submitForm');
+
+    // Fonction de validation commune pour les champs non vides
+    function validateField(inputId, errorId) {
+        const value = document.querySelector(inputId).value;
+        if (!value) {
+            document.querySelector(errorId).style.display = 'block';
+            return false;
+        } else {
+            document.querySelector(errorId).style.display = 'none';
+            return true;
+        }
+    }
+
+    // Fonction de validation pour les nombres
+    function validateNumberField(inputId, errorId) {
+        const value = document.querySelector(inputId).value;
+        const regexNumbers = /^[0-9]+$/;
+        if (!regexNumbers.test(value)) {
+            document.querySelector(errorId).style.display = 'block';
+            return false;
+        } else {
+            document.querySelector(errorId).style.display = 'none';
+            return true;
+        }
+    }
+
+    // Gérer le clic sur le bouton "Next" pour passer à l'étape 2
+    nextStep1.addEventListener('click', function() {
+        let formIsValid = true;
+
+        // Validation des champs obligatoires
+        formIsValid &= validateField('#annonces_Ville', '#error-ville');
+        formIsValid &= validateField('#annonces_Titre', '#error-titre');
+        formIsValid &= validateField('#annonces_Description', '#error-description');
+        formIsValid &= validateNumberField('#annonces_Prix', '#error-prix');
+        formIsValid &= validateNumberField('#annonces_KM', '#error-km');
+        formIsValid &= validateField('#annonces_DateCT', '#error-datect');
+
+        // Si tout est valide, passer à l'étape suivante
+        if (formIsValid) {
+            step1.style.display = 'none';
+            step2.style.display = 'block';
+        }
+    });
+
+    // Gérer le clic sur le bouton "Previous" pour revenir à l'étape 1
+    prevStep2.addEventListener('click', function(event) {
+        event.preventDefault(); // Empêche la soumission du formulaire
+        step1.style.display = 'block';
+        step2.style.display = 'none';
+    });
+
+    // Gérer l'envoi du formulaire
+    submitForm.addEventListener('click', function(event) {
+        event.preventDefault(); // Empêche la soumission automatique
+        document.querySelector('form').submit(); // Soumet le formulaire
+    });
+
+    // Gestion des erreurs en temps réel (lorsque l'utilisateur remplit les champs)
+    document.querySelector('#annonces_Ville').addEventListener('input', function() {
+        validateField('#annonces_Ville', '#error-ville');
+    });
+
+    document.querySelector('#annonces_Titre').addEventListener('input', function() {
+        validateField('#annonces_Titre', '#error-titre');
+    });
+
+    document.querySelector('#annonces_Description').addEventListener('input', function() {
+        validateField('#annonces_Description', '#error-description');
+    });
+
+    document.querySelector('#annonces_Prix').addEventListener('input', function() {
+        validateNumberField('#annonces_Prix', '#error-prix');
+    });
+
+    document.querySelector('#annonces_KM').addEventListener('input', function() {
+        validateNumberField('#annonces_KM', '#error-km');
+    });
+
+    document.querySelector('#annonces_DateCT').addEventListener('change', function() {
+        validateField('#annonces_DateCT', '#error-datect');
+    });
+
+document.querySelectorAll('.hidden-file-input').forEach(function(input, index) {
+    const previewImage = document.getElementById('previewImage' + (index + 1));
+
+    // Associe un clic sur l'image à un clic sur l'input file correspondant
+    previewImage.addEventListener('click', function() {
+        input.click();
+    });
+
+    // Gérer le changement de fichier pour afficher la prévisualisation
+    input.addEventListener('change', function() {
+        if (input.files.length > 0) {
+            const file = input.files[0];
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                previewImage.src = e.target.result; // Affiche l'aperçu de l'image
+            };
+            reader.readAsDataURL(file);
+        }
+    });
+});
+
+});
+</script>

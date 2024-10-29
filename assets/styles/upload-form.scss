@@ -1,0 +1,22 @@
+
+.image-upload {
+    position: relative;
+    cursor: pointer;
+    height: 100%;
+}
+
+.image-upload img {
+    width: 200px; /* Définissez la taille de l'image de prévisualisation */
+    height: auto;
+} 
+
+.previewImage {
+    min-height: 200px;
+    max-height: 200px;
+    border-radius: 50px;
+    object-fit: cover;
+}
+
+.vich-image {
+    display: none;
+}

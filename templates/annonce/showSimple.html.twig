@@ -1,0 +1,146 @@
+<div class="one-announce">
+    <div class="container-fluid bg-announce pt-5 pb-5" style="background-image: linear-gradient(rgba(255, 255, 255, 0.9), rgba(255, 255, 255, 0.9)), url('/images/annonces/{{ annonce.imageName1 }}')">
+        <div class="container img-top-announce pt-5 text-center">
+        {% if (annonce.imageName1 == null) and (annonce.imageName2 == null) and (annonce.imageName3 == null) %}
+        {% else %}
+            {% if annonce.imageName1 != null %}
+                <a data-fancybox="gallery-desk" href="/images/annonces/{{ annonce.imageName1 }}"><img src="/images/annonces/{{ annonce.imageName1 }}" alt="Ulm à vendre - {{annonce.TypeVehicule}} - {{ annonce.Titre }} - Image 1"/></a>
+            {% endif %}
+            {% if annonce.imageName2 != null %}
+                <a data-fancybox="gallery-desk" href="/images/annonces/{{ annonce.imageName2 }}"><img src="/images/annonces/{{ annonce.imageName2 }}" alt="Ulm à vendre - {{annonce.TypeVehicule}} - {{ annonce.Titre }} - Image 2"/></a>
+            {% endif %}
+            {% if annonce.imageName3 != null %}
+                <a data-fancybox="gallery-desk" href="/images/annonces/{{ annonce.imageName3 }}"><img src="/images/annonces/{{ annonce.imageName3 }}" alt="Ulm à vendre - {{annonce.TypeVehicule}} - {{ annonce.Titre }} - Image 3"/></a>
+            {% endif %}
+        {% endif %}
+        </div>
+    </div>
+
+    {# <div class="img-top-announce" style="background-image:url({{imagePath}})">
+        <!-- CAROUSEL MOBILE -->
+        <div class="gallery d-md-none d-block">
+            <div id="carouselExampleControls" class="carousel slide" data-ride="carousel">
+                <div class="carousel-inner zoom">
+                    <div class="carousel-item active">
+                        <a data-fancybox="gallery" href="/images/annonces/{{ annonce.imageName1 }}">
+                            <div class="img-annonce"><img src="/images/annonces/{{ annonce.imageName1 }}" alt="Ulm à vendre - {{annonce.TypeVehicule}} - {{ annonce.Titre }} - Image 1"/></div>
+                        </a>
+                    </div>
+                    {% if annonce.imageName2 != null %}
+                    <div class="carousel-item">
+                        <a data-fancybox="gallery" href="/images/annonces/{{ annonce.imageName2 }}">
+                            <div class="img-annonce"><img src="/images/annonces/{{ annonce.imageName2 }}" alt="Ulm à vendre - {{annonce.TypeVehicule}} - {{ annonce.Titre }} - Image 2"/></div>
+                        </a>
+                    </div>
+                    {% endif %}
+                    {% if annonce.imageName3 != null %}
+                    <div class="carousel-item">
+                        <a data-fancybox="gallery" href="/images/annonces/{{ annonce.imageName3 }}">
+                            <div class="img-annonce"><img src="/images/annonces/{{ annonce.imageName3 }}" alt="Ulm à vendre - {{annonce.TypeVehicule}} - {{ annonce.Titre }} - Image 3"/></div>
+                        </a>
+                    </div>
+                    {% endif %}
+                </div>
+                <a class="carousel-control-prev" href="#carouselExampleControls" role="button" data-slide="prev">
+                    <i class="fa-solid fa-circle-chevron-left"></i>
+                </a>
+                <a class="carousel-control-next" href="#carouselExampleControls" role="button" data-slide="next">
+                    <i class="fa-solid fa-circle-chevron-right"></i>
+                </a>
+            </div>
+        </div>
+        <!-- FIN CAROUSEL / DEBUT VUE DESKTOP -->
+        <div class="gallery d-none d-md-flex position-relative">
+            {% if annonce.imageName1 != null %}
+            <div class="img-annonce"><a data-fancybox="gallery-desk" href="/images/annonces/{{ annonce.imageName1 }}"><img src="/images/annonces/{{ annonce.imageName1 }}" alt="Ulm à vendre - {{annonce.TypeVehicule}} - {{ annonce.Titre }} - Image 1"/></a></div>
+            {% endif %}
+            {% if annonce.imageName2 != null %}
+            <div class="img-annonce"><a data-fancybox="gallery-desk" href="/images/annonces/{{ annonce.imageName2 }}"><img src="/images/annonces/{{ annonce.imageName2 }}" alt="Ulm à vendre - {{annonce.TypeVehicule}} - {{ annonce.Titre }} - Image 2"/></a></div>
+            {% endif %}
+            {% if annonce.imageName3 != null %}
+            <div class="img-annonce"><a data-fancybox="gallery-desk" href="/images/annonces/{{ annonce.imageName3 }}"><img src="/images/annonces/{{ annonce.imageName3 }}" alt="Ulm à vendre - {{annonce.TypeVehicule}} - {{ annonce.Titre }} - Image 3"/></a></div>
+            {% endif %}
+        </div>
+        <!-- FIN DESKTOP -->
+    </div> #}
+    <div class="container-fluid container-colored">
+        <div class="container mt-0">
+            <h1>
+                A vendre : {{ annonce.TypeVehicule }} - 
+                {% if annonce.Etat == "Neuf" %}
+                Neuf -    
+                {% endif %}
+                {% if annonce.Etat == "TBE" %}
+                Très bon état -    
+                {% endif %}
+                {{ annonce.Titre }} - {{ annonce.Prix|format_number({rounding_mode: 'floor'}) }}€
+            </h1>
+            {% if annonce.Etat == "BE" %}
+            <h2>Bon état : A été utilisé mais est toujours en bon état, avec quelques signes d'usure ou de dommages mineurs.</h2>
+            {% endif %}
+            {% if annonce.Etat == "ES" %}
+            <h2>État satisfaisant : Présente certains signes d'usure et de dommages, mais est encore fonctionnel.</h2>
+            {% endif %}
+            {% if annonce.Etat == "PIECES" %}
+            <h2>Pour pièces : Endommagé ou ne fonctionne plus correctement et est destiné à être utilisé pour les pièces détachées.</h2>
+            {% endif %}
+
+            <p class="mt-5">{{ annonce.Description|nl2br }}</p>
+
+            <h4 class="mt-5">Où se trouve le camion ?
+                <a href="https://www.google.com/maps?channel=fs&q={{annonce.Region}}+{{ annonce.Ville }}" target="_blank" rel="nofollow">
+                    {{annonce.Region}} - {{ annonce.Ville }}
+                </a>
+            </h4>
+
+            <div class="text-center mt-5">
+                <button class="btn btn-primary btn-lg mt-3" id="submit-btn">
+                    <i class="fa-solid fa-magnifying-glass-arrow-right"></i>CONTACTEZ LE VENDEUR</button>
+            </div>
+
+            <div class="row mx-auto text-center mt-5">
+                <div class="col-4">
+                    <p><img src="/images/sleeping.png" alt="bed" class="icon mr-3"/> <strong>{{ annonce.NbrCouchage}} couchages</strong></p>
+                </div>
+                <div class="col-4">
+                    <p><img src="/images/road.png" alt="bed" class="icon mr-3"/> <strong>{{annonce.KM}} km</strong></p>
+                </div>        
+                <div class="col-4">
+                    <p><img src="/images/check.png" alt="bed" class="icon mr-3"/> <strong>CT : {{annonce.DateCT}}</strong></p>
+                </div>
+            </div>
+
+            <div class="row mt-5 mb-0 pb-0">
+                <div class="mx-auto">
+                    <nav aria-label="breadcrumb">
+                        <ol class="breadcrumb" itemscope itemtype="https://schema.org/BreadcrumbList">
+                            <li class="breadcrumb-item" itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
+                                <a href="{{ path('index') }}" itemprop="item"><span itemprop="name">Accueil</span></a>
+                                <meta itemprop="position" content="1"/>
+                            </li>
+                            <li class="breadcrumb-item" itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
+                                <a href="{{ path('app_annonce_index') }}" itemprop="item"><span itemprop="name">Toutes les annonces</span></a>
+                                <meta itemprop="position" content="2"/>
+                            </li>
+                            <li aria-current="page" class="breadcrumb-item active" itemprop="itemListElement" itemscope itemtype="{{ path('app_annonce_show', {'SlugTitre': annonce.SlugTitre}) }}" itemprop="item"><span itemprop="name">{{ annonce.Titre }}</span></a>
+                                <meta itemprop="position" content="3"/>
+                            </li>
+                        </ol>
+                    </nav>
+                </div>
+            </div>
+        </div>
+        {# <div class="row m-auto btn-bottom">
+	<div class="col-12 text-center m-0 p-0">
+		<a href="{{ path('app_message_new', {'annonceId': annonce.id, 'conversationId': conversationId}) }}" class="btn btn-primary w-100">
+			<i class="fa-regular fa-comments"></i>
+			Contactez le vendeur
+		</a>
+	</div>
+</div> #}
+    </div>
+</div>
+<script>
+    Fancybox.bind('[data-fancybox="gallery-desk"]', {});
+    Fancybox.bind('[data-fancybox="gallery"]', {});
+</script>

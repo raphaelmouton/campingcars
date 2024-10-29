@@ -1,0 +1,204 @@
+@import "color";
+@import "sections";
+@import "nav";
+@import "card";
+@import "Font";
+@import "upload-form";
+@import "~bootstrap/scss/bootstrap";
+@import "form";
+@import "btn";
+@import "pagination";
+
+body {
+    font-family: "Afacad", cursive;
+    background-color: $dark;
+    // background-image: url('/public/images/bkg9.jpg');
+    background-size: cover;
+    background-position: top;
+    background-attachment: fixed;
+    background-repeat: no-repeat;
+    // border : solid $dark 20px;
+    max-width: 1920px;
+    margin: auto;
+}
+
+.container-fluid, .navbar  {
+    margin: 0 auto; 
+    max-width: 1920px;
+}
+
+.container-fluid {
+    padding: 0;
+    position: relative;
+    overflow: hidden;
+}
+
+
+.container-fluid-arrow {
+    &::after {
+        background-image: url('/public/images/arrow.png');
+        background-repeat: no-repeat;
+        position: absolute;
+        bottom: 0;
+        height: 300px;
+        width: 100%;
+        content: "";
+        display: block;
+        right: 70px;
+        bottom: -40%;
+        transform: translate(100%, -50%);
+    
+    }
+}
+
+.container {
+    max-width: 1300px;
+    p,  h1 {
+        z-index: 100;
+    }
+    .padding-container {
+        padding: 0 50px 50px 50px;
+    }
+}
+
+.container-colored-light {
+    overflow: hidden;
+    padding: 50px 100px;
+    background-color: $grey-light;
+    border-left: 5px solid $orange;
+    border-radius: 50px;
+
+    &.no-radius {
+        border-radius: 0;
+        border-left: 0;
+    }
+    
+}
+
+.container-colored {
+    overflow: hidden;
+    padding: 100px;
+    background-color: $dark;
+    color: $white;
+    position: relative;
+    &::before {
+        background-image: url('/public/images/arrow.png');
+        background-repeat: no-repeat;
+        position: absolute;
+        height: 214px;
+        width: 40px;
+        content: "";
+        display: block;
+        left: 0;
+        top: 50%;
+        transform: translate(0%, -50%) rotate(180deg);     
+    }
+    &::after {
+        background-image: url('/public/images/arrow.png');
+        background-repeat: no-repeat;
+        position: absolute;
+        height: 214px;
+        width: 40px;
+        content: "";
+        display: block;
+        right: 0;
+        top: 50%;
+        transform: translate(0%, -50%);    
+    }
+
+    &.no-arrow {
+        &::before {
+            display: none; 
+        }
+        &::after {
+            display: none; 
+        }
+    }
+}
+
+h1, h2, h3, h4, h5, h6, strong {
+    font-family: "Afacad-Bold", cursive;
+    font-weight: 600;
+}
+
+h2, h3 {
+    font-size: 3rem;
+}
+
+strong {
+    font-size: 2rem;
+}
+
+p {
+    font-size: 1.3rem;
+    font-weight: 500;
+}
+
+a {
+    color: $orange;
+    &:hover {
+        color: $white;
+    }
+}
+
+.breadcrumb {
+    background-color: $dark;
+    .breadcrumb-item.active {
+        font-weight: 600;
+        color: $white;
+    }
+    a {
+        color: $white;
+        font-weight: 400;
+    }
+}
+
+.img-top-container {
+    position: relative; /* Position relative pour le conteneur parent */
+    display: block; /* Optionnel : pour s'adapter au contenu */
+    width: 100%;
+    .img-top {
+        display: block;
+        width: 100%; /* Pour s'assurer que l'image prend toute la largeur du conteneur */
+        height: auto; /* Maintenir le ratio de l'image */
+        height: 90vh;
+        max-height: 850px;
+        object-position: center;
+        object-fit: cover;
+    }
+}
+
+.img-container {
+    object-fit: cover;
+    max-height: 700px;
+}
+
+a:hover {
+    text-decoration: none;
+}
+
+.position-relative {
+    position: relative;
+}
+
+.img-fluid {
+    display: block;
+    width: 100%;
+    height: auto;
+}
+
+.ico-form {
+    position: relative;
+    &::before {
+        position: absolute;
+        display: block;
+        left: 50%;
+        top: -5%;
+        transform: translate(-50%, -50%);
+        content: "";
+        font-family: "Font Awesome 5 Free"; font-weight: 900; content: "\f2bd";
+        font-size: 7rem;
+        color: $orange;
+        z-index: 1000;
+    }
+}

@@ -5,13 +5,23 @@
         <title>{% block title %}Welcome!{% endblock %}</title>
         <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 128 128%22><text y=%221.2em%22 font-size=%2296%22>⚫️</text><text y=%221.3em%22 x=%220.2em%22 font-size=%2276%22 fill=%22%23fff%22>sf</text></svg>">
         {% block stylesheets %}
+            {{ encore_entry_link_tags('app') }}
         {% endblock %}
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg==" crossorigin="anonymous" referrerpolicy="no-referrer">
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/5.1.0/css/bootstrap.min.css">
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/5.1.0/js/bootstrap.bundle.min.js"></script>
 
         {% block javascripts %}
+            {{ encore_entry_script_tags('app') }}
             {% block importmap %}{{ importmap('app') }}{% endblock %}
         {% endblock %}
     </head>
     <body>
+        {% include 'navbar.html.twig' %}
         {% block body %}{% endblock %}
+        {# <div id="top"></div> #}
+        {# <div id="bottom">      <svg id="visual" viewBox="0 0 1920 150" width="1920" height="150" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1">
+          <path d="M0 97L35.5 95.5C71 94 142 91 213.2 97.2C284.3 103.3 355.7 118.7 426.8 122.5C498 126.3 569 118.7 640 119.8C711 121 782 131 853.2 120.8C924.3 110.7 995.7 80.3 1066.8 77.2C1138 74 1209 98 1280 106.5C1351 115 1422 108 1493.2 104.5C1564.3 101 1635.7 101 1706.8 106.5C1778 112 1849 123 1884.5 128.5L1920 134L1920 201L1884.5 201C1849 201 1778 201 1706.8 201C1635.7 201 1564.3 201 1493.2 201C1422 201 1351 201 1280 201C1209 201 1138 201 1066.8 201C995.7 201 924.3 201 853.2 201C782 201 711 201 640 201C569 201 498 201 426.8 201C355.7 201 284.3 201 213.2 201C142 201 71 201 35.5 201L0 201Z" fill="#f8f8f8" stroke-linecap="round" stroke-linejoin="miter"></path>
+      </svg></div> #}
     </body>
 </html>

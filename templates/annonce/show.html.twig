@@ -1,0 +1,75 @@
+{% extends 'base.html.twig' %}
+{% set imagePath = '/images/annonces/' %}
+{% if annonce.imageName1 is defined %}
+	{% set imagePath = imagePath ~ annonce.imageName1 %}
+{% elseif annonce.imageName1 == null %}
+	{% set imagePath = imagePath ~ annonce.imageName2 %}
+{% elseif annonce.imageName2 == null %}
+	{% set imagePath = imagePath ~ annonce.imageName3 %}
+{% endif %}
+{% if annonce.SlugTitre != null %}
+	{% set model = annonce.SlugTitre %}
+{% else %}
+	{% set model = annonce.Titre %}
+{% endif %}
+{% block title %}A vendre :	{{ annonce.TypeVehicule }} - {{ annonce.Titre }} - {{ annonce.Prix }}€{% endblock %}
+{% block meta %}
+	<meta name="description" content="A vendre : {{ annonce.TypeVehicule }} - {{ annonce.Titre }} - Prix : {{ annonce.Prix }}€. Découvrez les caractéristiques et les photos de cet ULM d'occasion sur notre site.">
+	{% if annonce.ACTIVE == 1 %}
+		<meta name="robots" content="index, follow">
+	{% else %}
+		<meta name="robots" content="noindex, nofollow">
+	{% endif %}
+	<meta property="og:title" content="A vendre : {{ annonce.TypeVehicule }} - {{ annonce.Titre }} - {{ annonce.Prix }}€">
+	<meta property="og:description" content="A vendre : {{ annonce.TypeVehicule }} - {{ annonce.Titre }} - Prix : {{ annonce.Prix }}€. Découvrez les caractéristiques et les photos de cet ULM d'occasion sur notre site.">
+	<meta property="og:image" content="https://ulmavendre.fr{{imagePath}}">
+	<meta property="og:url" content="https://ulmavendre.fr/annonce/{{annonce.id}}/{{annonce.TypeVehicule|lower}}/{{model|lower}}">
+	<link rel="canonical" href="https://ulmavendre.fr/annonce/{{annonce.id}}/{{annonce.TypeVehicule|lower}}/{{model|lower}}">
+    <script type="application/ld+json">
+    {
+        "@context": "http://schema.org",
+        "@type": "Product",
+        "name": "{{annonce.Titre}}",
+		"image": [
+			"https://ulmavendre.fr{{imagePath}}"
+       ],
+        "description": "{{annonce.Description}}",
+        "brand": {
+            "@type": "Brand",
+            "name": "{{annonce.TypeVehicule}} à vendre"
+        },
+        "offers": {
+            "@type": "Offer",
+            "price": "{{annonce.Prix}}",
+            "priceCurrency": "EUR",
+            "availability": "http://schema.org/InStock",
+        	 "seller": {
+        	    "@type": "Person",
+        	    "name": "{{annonce.user.email[:4] ~ '***'}}"
+        	 }
+        }
+    }
+    </script>
+{% endblock %}
+{% block body %}
+	{% if annonce.ACTIVE == 1 %}
+		{% if (annonce.ReferencementPaymentOK == 1) or (annonce.DuoPaymentOK == 1) %}
+			{% include "annonce/showBoosted.html.twig" %}
+		{% else %}
+			{% include "annonce/showSimple.html.twig" %}
+		{% endif %}
+		{% else %}
+		<div class="container annonces no-image">
+			<h1 class="anim-text pt-5 text-center">{{annonce.TypeVehicule}} {{annonce.Titre}} n'est plus disponible !</h1>
+			<hr>
+			{# {% if annoncesSimilaire != null %}
+				<h2 class="pt-2 text-center">Découvrez les autres offres que nous avons selectionné pour vous :</h2>
+				<div class="grid--account mt-4">
+					{% for annonce in annoncesSimilaire|slice(0, 3) %}
+						{% include "annonce/_card.html.twig" %}
+					{% endfor %}
+				</div>
+			{% endif %} #}
+		</div>
+	{% endif %}
+{% endblock %}

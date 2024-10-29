@@ -1,0 +1,23 @@
+{{ form_start(form) }}
+    {{ form_widget(form) }}
+		<div class="col-lg-12 col-md-12 text-center">
+			{# {{dump(annonce)}} #}
+			<button class="btn btn-primary" id="submit-btn">
+				<i class="fa-solid fa-location-arrow"></i>
+				Envoyer le message !
+			</button>
+			<button class="btn btn-primary" type="button" id="loader" style="display:none;">
+				<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+				Merci ! Nous ajoutons votre message ...
+			</button>
+		</div>
+{{ form_end(form) }}
+<script>
+  document.getElementById('submit-btn').addEventListener('click', function() {
+    // Masquer le bouton principal
+    this.style.display = 'none';
+    
+    // Afficher le bouton avec le loader
+    document.getElementById('loader').style.display = 'inline-block';
+  });
+</script>

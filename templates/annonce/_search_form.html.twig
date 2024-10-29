@@ -1,0 +1,52 @@
+{{ form_start(form, {attr:{class: 'filter pl-md-3 pr-md-3 my-auto', id: 'filter'}}) }}
+<div class="form-row">
+	{# <div class="col-12 text-center d-none d-lg-block"><img src="{{asset('images/plane.png')}}" class="w-25 text-center" alt="search-logo"></div> #}
+	<p class="form-title mx-auto mb-0 col-12 text-center"><i class="fa-solid fa-filter"></i> Filtrer les annonces</p>
+	<hr>
+	<div class="col-lg-6 col-sm-6 text-center mt-5">
+		{{ form_row(form.Region) }}
+	</div>
+	<div class="col-lg-6 col-sm-6 text-center mt-5">
+		{{ form_row(form.TypeVehicule) }}
+	</div>
+	<div class="col-12 text-center">
+		{{ form_row(form.q) }}
+	</div>
+	<div class="col-6">
+		{{ form_row(form.min, {'attr': {'inputmode': 'decimal', 'pattern': '[0-9]*'}}) }}
+	</div>
+	<div class="col-6">
+		{{ form_row(form.max, {'attr': {'inputmode': 'decimal', 'pattern': '[0-9]*'}}) }}
+	</div>
+</div>
+<div class="text-center d-xl-none d-lg-block">
+	<a href="#" class="remove-class-link btn btn-secondary btn-sm">Afficher plus de critères !</a>
+</div>
+<div class="text-center">
+	<button class="btn btn-primary btn-lg mt-3" id="submit-btn">
+		<i class="fa-solid fa-magnifying-glass-arrow-right"></i>
+		{{ button_label|default('Appliquer votre recherche') }}</button>
+</div>
+{{ form_end(form) }}
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        var links = document.getElementsByClassName('remove-class-link');
+        var divs = document.getElementsByClassName('remove-on-sm');
+
+        for (var i = 0; i < links.length; i++) {
+            links[i].addEventListener('click', function(event) {
+                event.preventDefault();
+                for (var j = 0; j < divs.length; j++) {
+                    divs[j].classList.toggle('d-none');
+                    divs[j].classList.toggle('d-xl-block');
+                }
+                var buttonText = this.innerText;
+                this.innerText = buttonText === 'Afficher plus de critères !' ? 'Masquer les critères' : 'Afficher plus de critères !';
+            });
+        }
+    });
+</script>
+
+
+
+

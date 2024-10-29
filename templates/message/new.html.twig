@@ -1,0 +1,89 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Ulm à vendre - Envoyez un message{% endblock %}
+{% block meta %}
+	<meta name="description" content="Envoyez un message à sur notre plateforme de messagerie interne. Restez en contact avec vos contacts de manière sécurisée et pratique.">
+	<meta name="robots" content="noindex, nofollow">
+{% endblock %}
+{% block body %}
+	<div class="container compte no-image container-radius--padding">
+		{# read and display several types of flash messages #}
+		{% for label, messages in app.flashes(['success', 'danger']) %}
+			{% for message in messages %}
+				<div class="flash-{{ label }}">
+					<i class="fa-solid fa-circle-info"></i> {{ message }}
+				</div>
+			{% endfor %}
+		{% endfor %}
+		<div class="row pt-3">
+			<div class="col-lg-6 offset-lg-1 col-md-12 my-auto">
+				{% for message in messages %}
+					<p class="contact-message {% if message.envoyeur == app.user %}contact-color{% endif %}">Le
+						{{ message.PosteLe|format_datetime(locale='fr',pattern="dd MMMM YY")}}
+						{# {{dump(message)}} #}
+						<strong>{{ message.Envoyeur[:3] ~ '***' }}
+							a écrit :</strong><br>
+						{{ message.Contenu|nl2br }}</p>
+				{% else %}
+					<div class="row d-block mx-auto text-center">
+						<img src="{{asset('images/empty.png')}}" alt="pas encore de message"> <p class="text-center">Pas encore de message</p>
+					</div>
+				{% endfor %}
+				<div class="mt-5">
+					{{ include('message/_form.html.twig') }}
+					<div class="flash-warning text-white p-lg-5 p-sm-3 ml-0 mr-0">
+						<p><i class="fa-solid fa-circle-info mr-1"></i> 
+							Chers utilisateurs,<br>
+							Nous souhaitons attirer votre attention sur quelques points importants à prendre en considération lors de vos échanges sur notre plateforme :</p>
+
+							<ul class="text-left">
+								<li><span class="text-warning">Protection de vos coordonnées personnelles :</span> Veillez à ne pas partager vos coordonnées personnelles telles que votre adresse, ou vos informations bancaires dans les messages échangés.</li>
+
+								<li><span class="text-warning">Prudence lors des transactions :</span> Nous vous recommandons vivement de ne jamais conclure une transaction, ni de verser d'acompte, sans avoir vu l'ULM ou l'objet en vrai. Méfiez-vous des offres trop alléchantes et des vendeurs qui insistent pour conclure rapidement la vente sans vous laisser le temps de réfléchir.</li>
+
+								<li><span class="text-warning">Responsabilité de chacun :</span> Veuillez noter que notre plateforme agit uniquement en tant qu'intermédiaire entre acheteurs et vendeurs. Nous ne pouvons pas garantir la fiabilité des utilisateurs ni la qualité des transactions effectuées. En conséquence, nous déclinons toute responsabilité en cas d'arnaque, de litige ou de désaccord entre les parties.</li>
+							</ul>
+						<p>
+							Votre sécurité et votre satisfaction sont notre priorité absolue. Nous vous encourageons à faire preuve de vigilance et de bon sens lors de vos échanges sur notre site.<br>
+							Raphaël - ulmavendre.fr
+						</p>
+					</div>
+				</div>
+                <div class="row mt-5">
+					<div class="mx-auto">
+						<nav aria-label="breadcrumb">
+							<ol class="breadcrumb">
+								<li class="breadcrumb-item">
+									<a href="https://ulmavendre.fr{{ path('index') }}">Accueil</a>
+								</li>
+								<li class="breadcrumb-item">
+									<a href="https://ulmavendre.fr{{ path('app_conversation') }}">Tous les messages</a>
+								</li>
+								<li class="breadcrumb-item active" aria-current="page">Message privé</li>
+							</ol>
+						</nav>
+						{# <div class="text-center">
+							{% if (app.user != null) and (annonce.user.email is defined) %}
+								{% if app.user.email == annonce.user.email %}
+									<a href="{{ path('app_annonces_edit', {'id': annonce.id}) }}" class="btn btn-primary">Editer</a>
+									{{ include('annonces/_delete_form.html.twig') }}
+								{% endif %}
+							{% endif %}
+						</div> #}
+					</div>
+				</div>
+			</div>
+			<div class="col-lg-4 col-md-12">
+				<div class="contact-annonce">
+					{% include "annonces/_card.html.twig" %}
+					{% if is_granted('ROLE_ADMIN') %}
+						<div class="mx-auto mt-2 p-2 text-sm">
+							<p class="text-center my-auto">Adresse mail du vendeur :<br> {{annonce.user.email}}</p>
+						</div>
+					{% endif %}
+				</div>
+			</div>
+		</div>
+	</div>
+
+{% endblock %}

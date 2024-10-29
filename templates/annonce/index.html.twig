@@ -1,0 +1,42 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Annonces index{% endblock %}
+
+{% block body %}
+<div class="container-fluid container-colored all-announces">
+    <div class="container pt-5">
+        <div class="row p-0 m-0">
+            <div class="col-lg-6 col-md-4 col-sm-12 p-0 position-relative">
+                <img src="{{ asset('/images/landscape.jpg') }}" alt="image-accueil" class="img-fluid img-top"/>
+            </div>
+            <div class="col-lg-6 col-md-8 col-sm-12 my-auto">
+                {% include "annonce/_search_form.html.twig" %}
+            </div>
+        </div>
+    </div>
+</div>
+ <div class="container-fluid pb-5 pt-5">
+    <div class="container container-colored-light pb-5">
+        <h2>Toutes les annonces ...</h2>
+        <div class="row">
+            {% for annonce in annonces %}
+                {% include "annonce/_card.html.twig" %}
+            {% else %}
+                <div>
+                    <p>no records found</p>
+                </div>
+            {% endfor %}
+        </div>
+        <div class="mt-5 mb-5 float-right">{{knp_pagination_render(annonces)}}</div>
+    </div>
+</div>
+<div class="container-fluid container-colored">
+    <div class="container">
+    <h2>Bienvenue sur CampingCarsavendre.net</h2>
+        <p>
+        La plateforme dédiée à la vente et à l'achat de camping-cars d'occasion entre particuliers. Que vous soyez à la recherche du camping-car idéal pour vos prochaines aventures ou que vous souhaitiez vendre le vôtre en toute simplicité, vous êtes au bon endroit.
+        CampingCarsavendre.net met en relation les passionnés de voyage en camping-car avec des acheteurs sérieux à travers toute la France. Nous vous offrons une large sélection de véhicules d'occasion, soigneusement vérifiés par leurs propriétaires, pour vous assurer de trouver celui qui correspond parfaitement à vos besoin.
+        </p>
+    </div>
+</div>
+{% endblock %}

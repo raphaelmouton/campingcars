@@ -1,0 +1,124 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Ulm à vendre - Messagerie interne
+{% endblock %}
+{% block meta %}
+	<meta name="description" content="Consultez et gérez facilement tous vos messages sur notre plateforme. Restez en contact avec les autres membres et suivez vos conversations en un seul endroit. ulmavendre.fr - Messagerie interne.">
+	<meta name="robots" content="noindex, nofollow">
+{% endblock %}
+
+{% block body %}
+	<div class="container compte no-image container-radius--padding">
+	{% for label, messages in app.flashes(['success', 'danger']) %}
+		{% for message in messages %}
+			<div class="flash-{{ label }} mb-3 ml-0">
+				<i class="fa-solid fa-circle-info"></i> {{ message }}
+			</div>
+		{% endfor %}
+	{% endfor %}
+		<div class="row">
+			<div class="col-lg-3 col-md-12">
+				{% include "security/nav-pills.html.twig" %}
+			</div>
+			<div class="text-center col-lg-9 col-md-12 mt-3">
+				<ul class="list-groups p-0 mx-auto row mb-5">
+					{% for conversation in conversations %}
+						{% if conversation.annonce.Ispublished == true %}
+							<a href="{{ path('app_message_new', {'annonceId': conversation.annonce.id, 'conversationId': conversation.id}) }}" class="m-1 col-lg-5 col-md-12">
+								<li class="list-group-item mx-auto">
+									<i class="fa-regular fa-envelope"></i><br>
+									{# {{dump(conversation)}} #}
+									{% if conversation.Envoyeur != app.user %}
+										<p class="text-center">
+											<span class="text-success">{{ conversation.Envoyeur[:3] ~ '***' }}</span>
+											vous a contacté au sujet de l'annonce :
+											<br>
+											<strong>{{ conversation.annonce.Titre }}</strong>
+										</p>
+									{% else %}
+										<p class="text-center">Vous avez contacté
+											<span class="text-success">{{ conversation.Receveur[:1] ~ '***' }}</span>
+											au sujet de l'annonce :
+											<br><strong>{{ conversation.annonce.Titre }}</strong>
+										</p>
+									{% endif %}
+									<div class="btn btn btn-sm mt-0">
+										<p class="mb-0 text-center">Voir cette conversation</p>
+										{% if conversation.envoyeur == app.user.email %}
+											{% if conversation.VuParEnvoyeur == 0 %}
+												<span class="badge badge-warning pr-3 pl-3 text-lg">1 Nouveau Message !</span>
+											{% else %}
+												<span class="badge badge-primary pr-3 pl-3 text-lg">Pas de nouveau Message !</span>
+											{% endif %}
+										{% endif %}
+										{% if conversation.receveur == app.user.email %}
+											{% if conversation.VuParReceveur == 0 %}
+												<span class="badge badge-warning pr-3 pl-3 text-lg">1 Nouveau Message !</span>
+											{% else %}
+												<span class="badge badge-primary pr-3 pl-3 text-lg">Pas de nouveau Message !</span>
+											{% endif %}
+										{% endif %}
+									</div>
+								</li>
+							</a>
+						{% endif %}
+					{% else %}
+						<div class="mx-auto pt-5">
+							<img src="{{asset('images/empty.png')}}" alt="image pas de conversation">
+							<p>Pas encore de conversation</p>
+						</div>
+					{% endfor %}
+				</ul>
+				<h3>Messagerie : annonce(s) archivée(s)</h3>
+				<hr>
+				<ul class="list-group mt-3">
+				{% for conversation in conversations %}
+					{% if conversation.annonce.Ispublished == false %}
+							<a href="{{ path('app_message_new', {'annonceId': conversation.annonce.id, 'conversationId': conversation.id}) }}">
+								<li class="list-group-item">
+									{% if conversation.Envoyeur != app.user %}
+										<p class="text-center">
+											<span class="text-success">{{ conversation.Envoyeur[:3] ~ '***' }}</span>
+											vous a contacté au sujet de l'annonce :
+											<strong>{{ conversation.annonce.Titre }}</strong>
+										</p>
+									{% else %}
+										<p class="text-center">Vous avez contacté
+											<span class="text-success">{{ conversation.Receveur[:1] ~ '***' }}</span>
+											au sujet de l'annonce :<strong>{{ conversation.annonce.Titre }}</strong>
+										</p>
+									{% endif %}
+								</li>
+							</a>
+						</ul>
+					{% endif %}
+				{% endfor %}
+				{% if is_granted('ROLE_ADMIN') %}
+					{% if (annoncesUser is defined) and (annoncesUser != null) %}
+					<div class="row justify-content-center mt-3 mb-3 pt-3 pb-3 bg-white">
+						<h4>Annonces de {{ userId }}<hr></h4>
+						<div class="grid--account col-12">
+							{% for annonce in annoncesUser %}
+								{% include "annonces/_card.html.twig" %}
+									{% else %}
+									<div class="mx-auto">
+										<img src="{{asset('images/empty.png')}}" alt="Image pas encore d'annonce"> <p class="text-center">Pas encore d'annonce</p>
+									</div>
+							{% endfor %}
+						</div>
+					</div>
+					{% endif %}
+				{% endif %}
+				<p class="text-center">
+					<strong>Aidez-nous à maintenir ulmavendre.fr en vie !
+					</strong>
+					<br>Même un don de 1€ peut nous aider à couvrir les frais du serveur <br>et à continuer à améliorer votre expérience sur le site.
+					<br>Chaque contribution compte et nous sommes reconnaissants de votre soutien pour faire perdurer notre plateforme.
+				</p>
+				<a href="https://buy.stripe.com/00gdUf5DQ9yG3aE8ww" class="btn btn-warning" target="_blank">
+					<i class="fa-solid fa-basket-shopping"></i>
+					Soutenir ulmavendre.fr</a>
+			</div>
+		</div>
+	</div>
+{% endblock %}
