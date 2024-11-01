@@ -1,10 +1,10 @@
 <nav class="navbar navbar-expand-lg navbar-dark fixed-top">
-  <img src="{{ asset('/images/logo.png') }}" alt="image-accueil" class="img-fluid navbar-logo"/>
+  <a class="nav-link" href="{{ path('index') }}"><img src="{{ asset('/images/logo.png') }}" alt="image-accueil" class="img-fluid navbar-logo" /></a>
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-    <span class="navbar-toggler-icon"></span>
+    Menu
   </button>
   <div class="collapse navbar-collapse" id="navbarNav">
-    <!-- Centered nav items -->
+    <!-- Centre les éléments de nav -->
     <ul class="navbar-nav mx-auto">
       <li class="nav-item">
         <a class="nav-link" href="{{ path('index') }}">Accueil</a>
@@ -18,10 +18,24 @@
       <li class="nav-item">
         <a class="nav-link" href="#">Vidéos</a>
       </li>
+      <div class=" d-md-none d-block">
+        {% if app.user %}
+          <li class="nav-item">
+            <a class="nav-link" href="{{ path('app_account') }}">Mon compte <i class="fa-regular fa-circle-user ml-2"></i></a>
+          </li>
+        {% else %}
+          <li class="nav-item">
+            <a class="nav-link" href="{{ path('app_login') }}">Connexion</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="{{ path('app_register') }}">Inscription</a>
+          </li>
+        {% endif %}
+      </div>
     </ul>
 
-    <!-- Right-aligned links -->
-    <ul class="navbar-nav ml-auto">
+    <!-- Liens de droite qui se déplacent en colonne sur mobile -->
+    <ul class="navbar-nav user-nav ml-auto mt-3 mt-lg-0 d-none d-md-flex">
       {% if app.user %}
         <li class="nav-item">
           <a class="nav-link" href="{{ path('app_account') }}">Mon compte <i class="fa-regular fa-circle-user ml-2"></i></a>
@@ -35,6 +49,5 @@
         </li>
       {% endif %}
     </ul>
-
   </div>
 </nav>

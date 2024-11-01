@@ -6,17 +6,20 @@
     {% elseif annonce.imageName2 == null %}
         {% set imagePath = imagePath ~ annonce.imageName3 %}
 {% endif %}
-<div class="col-4 mt-4">
+{% set route = app.request.uri %}
+<div class="{% if ("/messages" in route) %}col-12{% else %}col-lg-4 col-md-6 col-sm-12{% endif %} mt-4">
     <a href="{{ path('app_annonce_show', {'SlugTitre': annonce.SlugTitre}) }}">
         <div class="card">
             <div class="card-header lazyload lazyfadein"><img class="" src="{{imagePath}}" alt="Card image cap">
                 <p class="card-text-left mb-0 text-center">{{ annonce.Prix }} € <br> {{ annonce.Ville }}</p>
             </div>
-            <div class="card-title">
-                <p class="mb-0 pb-0">{{ annonce.Titre[:25] ~ '...' }}</p>
-            </div>
+            {% if ("/messages" in route) %}{% else %}
+                <div class="card-title">
+                    <p class="mb-0 pb-0">{{ annonce.Titre[:25] ~ '...' }}</p>
+                </div>
+            {% endif %}
             {# <a href="{{ path('app_annonce_show', {'SlugTitre': annonce.SlugTitre}) }}">show</a> #}
         </div>
     </a>
-    <a href="{{ path('app_annonce_edit', {'id': annonce.id}) }}" class="btn btn-dark w-100 mt-1">Editer</a>
+    {# <a href="{{ path('app_annonce_edit', {'id': annonce.id}) }}" class="btn btn-dark w-100 mt-1">Editer</a> #}
 </div>

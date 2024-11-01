@@ -3,10 +3,10 @@
 	{# <div class="col-12 text-center d-none d-lg-block"><img src="{{asset('images/plane.png')}}" class="w-25 text-center" alt="search-logo"></div> #}
 	<p class="form-title mx-auto mb-0 col-12 text-center"><i class="fa-solid fa-filter"></i> Filtrer les annonces</p>
 	<hr>
-	<div class="col-lg-6 col-sm-6 text-center mt-5">
+	<div class="col-lg-6 col-sm-6 text-center mt-lg-3">
 		{{ form_row(form.Region) }}
 	</div>
-	<div class="col-lg-6 col-sm-6 text-center mt-5">
+	<div class="col-lg-6 col-sm-6 text-center mt-lg-3">
 		{{ form_row(form.TypeVehicule) }}
 	</div>
 	<div class="col-12 text-center">
@@ -19,16 +19,16 @@
 		{{ form_row(form.max, {'attr': {'inputmode': 'decimal', 'pattern': '[0-9]*'}}) }}
 	</div>
 </div>
-<div class="text-center d-xl-none d-lg-block">
+{# <div class="text-center d-xl-none d-lg-block">
 	<a href="#" class="remove-class-link btn btn-secondary btn-sm">Afficher plus de critères !</a>
-</div>
+</div> #}
 <div class="text-center">
 	<button class="btn btn-primary btn-lg mt-3" id="submit-btn">
 		<i class="fa-solid fa-magnifying-glass-arrow-right"></i>
 		{{ button_label|default('Appliquer votre recherche') }}</button>
 </div>
 {{ form_end(form) }}
-<script>
+{# <script>
     document.addEventListener('DOMContentLoaded', function() {
         var links = document.getElementsByClassName('remove-class-link');
         var divs = document.getElementsByClassName('remove-on-sm');
@@ -45,7 +45,7 @@
             });
         }
     });
-</script>
+</script> #}
 
 
 

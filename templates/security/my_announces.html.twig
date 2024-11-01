@@ -3,12 +3,21 @@
 {% block title %}Log in!{% endblock %}
 
 {% block body %}
-<div class="container-fluid account">
-    <div class="img-account">
-        <img src="{{ asset('/images/bkg5.jpg') }}" alt="image-accueil" class="img-fluid img-container">
+<div class="announce">
+    <div class="container-fluid container-colored conversations no-arrow">
+        <div class="container pt-5">
+            <div class="row p-0 m-0">
+                <div class="col-lg-6 col-md-4 col-sm-12 p-0 position-relative">
+                    <img src="{{ asset('/images/bkg5.jpg') }}" alt="image-accueil" class="img-fluid img-top"/>
+                </div>
+                <div class="col-lg-6 col-md-8 col-sm-12 my-auto text-center">
+                    <h1>Retrouvez toutes vos annonces<br> sur cette page.</h1>
+                </div>
+            </div>
+        </div>
     </div>
-    <div class="ico-form">
-        <div class="container container-colored no-arrow pt-5 pb-5">
+	<div class="container-fluid pb-5">
+		<div class="container container-colored-light pb-5 text-center">
             <h1 class="text-center">Voici toutes vos annonces !</h1>
             <div class="row">
                 {% for annonce in annonces %}

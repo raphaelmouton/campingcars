@@ -24,7 +24,10 @@ class AnnoncesRepository extends ServiceEntityRepository
     {
         $query = $this->createQueryBuilder('a')
                       ->select('a')
-                      ->andWhere('a.ACTIVE = 1');
+                      ->andWhere('a.ACTIVE = 1')
+                    //   ->orderBy('a.ReferencementPaymentOK', 'DESC')
+                    //   ->addOrderBy('a.DateBoost', 'DESC')
+                      ->addOrderBy('a.id', 'DESC');
     
         if (!empty($search->q)) {
             $query->andWhere(

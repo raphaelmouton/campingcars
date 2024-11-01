@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>Merci de vous être inscrit(e) sur ulmavendre.fr !</title>
+</head>
+<body>
+	<p>Cher(e) utilisateur/trice,</p>
+
+	<p>Nous avons reçu une demande de réinitialisation de votre mot de passe pour votre compte sur ulmavendre.fr. Si vous n'avez pas fait cette demande, vous pouvez ignorer cet e-mail en toute sécurité.
+	<br>
+
+	Si vous avez effectué cette demande, veuillez cliquer sur le lien ci-dessous pour réinitialiser votre mot de passe :<br>
+	<a href="{{ url('app_reset_password', {token: resetToken}) }}">{{ url('app_reset_password') }}</a>
+	<br>
+	Si vous rencontrez des problèmes pour réinitialiser votre mot de passe ou si vous avez d'autres questions, n'hésitez pas à nous contacter en répondant à cet e-mail.
+
+	Cordialement,
+
+	Raphaël - ulmavendre.fr
+	</p>
+</body>
+</html>

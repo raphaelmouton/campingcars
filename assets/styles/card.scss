@@ -7,6 +7,7 @@
         font-weight: 400;
         background-color: $dark;
         border-radius: 0 0 50px 50px;
+        border-bottom: 5px solid $orange;
         padding: 5px 30px;
         box-shadow: -10px 4px 10px #00000069;
         text-shadow: 6px -2px 20px #ff5858;
@@ -39,8 +40,8 @@
         .card-text-left {
             position: absolute;
             background-color: $white;
-            padding: 10px 30px;
-            left: 10%;
+            padding: 10px 20px;
+            left: 20%;
             font-size: 1rem;
             color: $dark;
             font-weight: 800;

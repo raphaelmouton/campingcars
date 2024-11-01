@@ -3,14 +3,24 @@
 {% block title %}Log in!{% endblock %}
 
 {% block body %}
-<div class="container-fluid account">
-    <div class="img-account">
-        <img src="{{ asset('/images/bkg5.jpg') }}" alt="image-accueil" class="img-fluid img-container">
+<div class="announce">
+    <div class="container-fluid container-colored account no-arrow">
+        <div class="container pt-5">
+            <div class="row p-0 m-0">
+                <div class="col-lg-6 col-md-4 col-sm-12 p-0 position-relative">
+                    <img src="{{ asset('/images/bkg5.jpg') }}" alt="image-accueil" class="img-fluid img-top"/>
+                </div>
+                <div class="col-lg-6 col-md-8 col-sm-12 my-auto text-center">
+                    <h1>Bienvenue sur votre compte <br> <span class="text-orange">{{last_username}}</span></h1>
+                </div>
+            </div>
+        </div>
     </div>
-    <div class="ico-form">
-        <div class="container container-colored no-arrow pt-5 pb-5 text-center">
-            <h1 class="text-center">Bienvenue dans votre compte {{last_username}}!</h1>
+	<div class="container-fluid pb-5 account">
+		<div class="container container-colored-light pb-5 text-center">
+            <h3 class="text-center">Choisissez ce que vous souhaitez consulter :</h3>
             <a href="{{ path('my_announces') }}" class="btn btn-primary btn-lg mt-5">Mes annonces</a>
+            <a href="{{ path('app_conversation') }}" class="btn btn-primary btn-lg mt-5">Mes messages</a>
         </div>
     </div>
 </div>

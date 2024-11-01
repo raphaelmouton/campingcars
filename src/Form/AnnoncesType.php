@@ -37,7 +37,7 @@ class AnnoncesType extends AbstractType
             ])
             ->add('Description', TextareaType::class, [
                 'label' => 'Ajoutez une description à votre annonce :',
-                "attr" => ['cols' => '50', 'rows' => '12']
+                "attr" => ['cols' => '40', 'rows' => '8']
             ])
             ->add('Prix', NumberType::class, [
                 'label' => 'Ajoutez un prix à votre annonce :'
@@ -53,10 +53,16 @@ class AnnoncesType extends AbstractType
                 ],
             ])
             ->add('KM', NumberType::class, [
-                'label' => 'Votre véhicule à combien de kilométres ?'
+                'label' => 'Kilométrage : '
             ])
-            ->add('DateCT', TextType::class, [
-                'label' => 'A quand remonte son dernier controle technique ?'
+            ->add('DateCT', ChoiceType::class, [
+                'label' => 'Contrôle technique valide :',
+                'choices'  => [
+                    'Oui'        => 'Oui',
+                    'Non'        => 'Non',
+                    'En cours'   => 'En cours',
+                    'Sera fait pour la vente'   => 'Sera fait pour la vente',
+                ],
             ])
             ->add('NbrCouchage', NumberType::class, [
                 'label' => 'Votre véhicule à combien de couchages ?'

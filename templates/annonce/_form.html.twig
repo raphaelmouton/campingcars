@@ -5,40 +5,40 @@
     <div class="step step-1">
         <div class="row 
         mx-auto text-center">
-            <div class="col-4">
+            <div class="col-lg-4 col-md-6">
                 {{ form_row(form.Region, { 'attr': { 'id': 'annonces_Region' } }) }}
             </div>
-            <div class="col-4">
+            <div class="col-lg-4 col-md-6">
                 {{ form_row(form.Ville, { 'attr': { 'id': 'annonces_Ville' } }) }}
                 <p class="error-message" id="error-ville" style="display:none;color:red;">Merci de remplir ce champ</p>
             </div>
-            <div class="col-4">
+            <div class="col-lg-4 col-md-12">
                 {{ form_row(form.TypeVehicule, { 'attr': { 'id': 'annonces_TypeVehicule' } }) }}
             </div>        
-            <div class="col-6">
+            <div class="col-lg-6 col-md-12">
                 {{ form_row(form.Titre, { 'attr': { 'id': 'annonces_Titre' } }) }}
                 <p class="error-message" id="error-titre" style="display:none;color:red;">Merci de remplir ce champ</p>
             </div>             
-            <div class="col-6">
+            <div class="col-lg-6 col-md-12">
                 {{ form_row(form.Etat, { 'attr': { 'id': 'annonces_Etat' } }) }}
             </div>                  
             <div class="col-12">
                 {{ form_row(form.Description, { 'attr': { 'id': 'annonces_Description' } }) }}
                 <p class="error-message" id="error-description" style="display:none;color:red;">Merci de remplir ce champ</p>
             </div>      
-            <div class="col-6">
+            <div class="col-lg-6 col-md-12">
                 {{ form_row(form.Prix, { 'attr': { 'id': 'annonces_Prix' } }) }}
                 <p class="error-message" id="error-prix" style="display:none;color:red;">Merci d'entrer un prix valide</p>
             </div>     
-            <div class="col-6">
+            <div class="col-lg-6 col-md-12">
                 {{ form_row(form.KM, { 'attr': { 'id': 'annonces_KM' } }) }}
                 <p class="error-message" id="error-km" style="display:none;color:red;">Merci d'entrer un nombre valide</p>
             </div>    
-            <div class="col-6">
+            <div class="col-lg-6 col-md-12">
                 {{ form_row(form.DateCT, { 'attr': { 'id': 'annonces_DateCT' } }) }}
                 <p class="error-message" id="error-datect" style="display:none;color:red;">Merci de remplir la date</p>
             </div>
-            <div class="col-6">
+            <div class="col-lg-6 col-md-12">
                 {{ form_row(form.NbrCouchage) }}
             </div>
             <div class="text-right col-12 mt-3">

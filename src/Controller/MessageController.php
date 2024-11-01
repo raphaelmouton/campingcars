@@ -55,9 +55,9 @@ class MessageController extends AbstractController
 
         // dd($conversation->getReceveur()->getId();
         if ($conversation != null) {
-            if ($conversation->getEnvoyeur() == $envoyeur->getEmail() or ($this->getUser()->getRoles()[0] == "ROLE_ADMIN")) {
+            if ($conversation->getEnvoyeur()->getEmail() == $envoyeur->getEmail() or ($this->getUser()->getRoles()[0] == "ROLE_ADMIN")) {
                 $receveur = $conversation->getReceveur();
-            } elseif ($conversation->getReceveur() == $envoyeur->getEmail()) {
+            } elseif ($conversation->getReceveur()->getEmail() == $envoyeur->getEmail()) {
                 $receveur = $conversation->getEnvoyeur();
             } else {
                 $this->addFlash(
@@ -118,11 +118,12 @@ class MessageController extends AbstractController
                 $conversation->setAnnonce($annonce);
                 $conversation->setEnvoyeur($envoyeur);
                 $conversation->setReceveur($receveur);
-                $conversation->setSujet("Message de : " . $envoyeur . " - Pour l'annonce : " . $annonce->getTitre());
+                $conversation->setSujet("Message de : - Pour l'annonce : " . $annonce->getTitre());
                 $entityManager->persist($conversation);
                 $entityManager->flush();
+                $message->setUser($this->getUser());
                 $message->setAnnonce($annonce);
-                $message->setEnvoyeur($user->getEmail());
+                $message->setEnvoyeur($envoyeur);
                 $message->setReceveur($receveur);
                 $message->setPosteLe($date);
                 $message->setContenu($form->getData()->getContenu());
@@ -139,7 +140,7 @@ class MessageController extends AbstractController
                 return $this->redirectToRoute('app_conversation', [], Response::HTTP_SEE_OTHER);
             } else {
                 $message->setAnnonce($annonce);
-                $message->setEnvoyeur($user->getEmail());
+                $message->setEnvoyeur($user);
                 $message->setReceveur($conversation->getReceveur());
                 $message->setContenu($form->getData()->getContenu());
                 $message->setConversation($conversation);
@@ -147,7 +148,7 @@ class MessageController extends AbstractController
                 if ($conversation->getEnvoyeur() != $this->getUser()) {
                     $email = (new TemplatedEmail())
                     ->from(new Address('contact@ulmavendre.fr', 'Raphaël - Ulmavendre.fr'))
-                    ->to($conversation->getEnvoyeur())
+                    ->to($conversation->getEnvoyeur()->getEmail())
                     ->replyTo('contact@ulmavendre.fr')
                     ->subject($TitreAnnonce . ' : Message en attente sur ulmavendre.fr')
                     ->htmlTemplate('emails/newMessage.html');
@@ -156,13 +157,12 @@ class MessageController extends AbstractController
                 if ($conversation->getEnvoyeur() == $this->getUser()) {
                     $email = (new TemplatedEmail())
                     ->from(new Address('contact@ulmavendre.fr', 'Raphaël - Ulmavendre.fr'))
-                    ->to($conversation->getReceveur())
+                    ->to($conversation->getReceveur()->getEmail())
                     ->replyTo('contact@ulmavendre.fr')
                     ->subject($TitreAnnonce . ' : Message en attente sur ulmavendre.fr')
                     ->htmlTemplate('emails/newMessage.html');
                     $mailer->send($email);
                 }
-
                 $entityManager->persist($message);
                 $entityManager->flush();
                 return $this->redirectToRoute('app_conversations_edit', ['id' => $conversationId]);

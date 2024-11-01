@@ -6,14 +6,15 @@
             right: 0;
             content: "";
             display: block;
-            background-color: #203237f3;
+            background-color: #2032378d;
             height: 100%;
             width: 40%;
 
         }
     }
     .cool {
-        font-size: 80px;
+        font-size: clamp(1.5rem, 4vw + 1rem, 5rem) !important;
+        word-break: break-word;
         color: $white;
         font-weight: 800;
         position: absolute;
@@ -30,9 +31,10 @@
         border-radius: 50px;
         transform: rotate(-3deg);
         box-shadow: -20px 18px 20px #0000004a;
+        border-bottom: 5px solid $orange;
     }
     .form-title {
-        font-size: 2rem;
+        font-size: clamp(1rem, 4vw + 0.8rem, 2rem);
         font-weight: 600;
     }
 
@@ -46,22 +48,19 @@
 }
 
 .one-announce {
-    .img-top-announce {
-        img {
-            max-width: 31%;
-            height: 300px;
-            object-fit: cover;
-            border-radius: 20px;
-            margin: auto 10px;
-        }
+    overflow: visible !important;
+    .carousel {
+        transform: rotate(-2deg);
     }
-
-    .bg-announce {
-        background-size: cover;
-        background-position: center;
-        background-color: $white;
+    .img-carousel {
+        height: 500px;
+        object-fit: cover;
+        width: 100%;
+        border-radius: 50px;
+        border-bottom: 5px solid $orange;
+    }
     
-    }
+
     h1, h2, h3, h4 {
         text-align: center;
     }
@@ -73,6 +72,23 @@
     .icon {
         max-width: 50px;
     }
+
+    .container-announce {
+        position: relative;
+        overflow: visible;
+        &::before{
+            position: absolute;
+            text-align: left;
+            top: -35px;
+            display: block;
+            font-weight: 600;
+            content: "Description du vendeur";
+            font-size: 2rem;
+            text-shadow: -6px 1px 10px $dark;
+            color: $white;
+        }
+    }
+
 }
 .new-announce {
     .bg-announce {
@@ -91,11 +107,72 @@
     }
 }
 .account {
+    .img-top {
+        border-radius: 50px;
+        transform: rotate(-3deg);
+        box-shadow: -20px 18px 20px #0000004a;
+        border-bottom: 5px solid $orange;
+    }
     .container-colored {
         overflow: visible;
     }
     .img-account {
         max-height: 500px;
         height: 50vh;
+    }
+}
+
+.conversations {
+    .img-top {
+        border-radius: 50px;
+        transform: rotate(-3deg);
+        box-shadow: -20px 18px 20px #0000004a;
+        border-bottom: 5px solid $orange;
+    }
+    .list-groups {
+        p {
+            color: $dark;
+        }
+        .btn {
+            padding: 5px 30px;
+            font-size: 1rem;
+        }
+        .list-group-item {
+            border-radius: 25px;
+        }
+    }
+    strong {
+        font-size: 1.5rem;
+    }
+
+    .contact-message {
+        padding: 20px 20px;
+        border-radius: 20px;
+        margin: 10px;
+        text-align: left;
+        background: $dark;
+        color: white;
+        strong {
+            background: none;
+            -webkit-text-fill-color: white !important;
+            color: white !important;
+        }
+    }
+
+    .contact-color {
+        background: $grey;
+        color: $dark;
+        text-align: right;
+        strong {
+            background: none;
+            -webkit-text-fill-color: $dark !important;
+            color: $dark !important;
+        }
+    }
+
+    .card-header {
+        img {
+            border-radius: 50px !important;
+        }
     }
 }

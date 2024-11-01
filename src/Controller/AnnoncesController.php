@@ -7,6 +7,7 @@ use App\Form\AnnoncesType;
 use App\Form\SearchType;
 use App\Data\SearchData;
 use App\Repository\AnnoncesRepository;
+use App\Repository\ConversationRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -76,10 +77,31 @@ class AnnoncesController extends AbstractController
     }
 
     #[Route('/{SlugTitre}', name: 'app_annonce_show', methods: ['GET'])]
-    public function show(Annonces $annonce): Response
+    public function show(Annonces $annonce, ConversationRepository $conversationRepository, AnnoncesRepository $annoncesRepository):Response
     {
+        $envoyeur = $this->getUser();
+        $receveur = $annonce->getUser();
+        if ($envoyeur != null) {
+            $conversation = $conversationRepository->createQueryBuilder('c')
+            ->where('c.annonce = :annonce')
+            ->andWhere('(c.Envoyeur = :envoyeur AND c.Receveur = :receveur) OR (c.Envoyeur = :receveur AND c.Receveur = :envoyeur)')
+            ->setParameter('annonce', $annonce)
+            ->setParameter('envoyeur', $envoyeur)
+            ->setParameter('receveur', $receveur)
+            ->setMaxResults(1)
+            ->getQuery()
+            ->getOneOrNullResult();
+        } else {
+            $conversation = 0;
+        }
+        if ($conversation != null) {
+            $conversation = $conversation->getId();
+        } else {
+            $conversation = 0;
+        }
         return $this->render('annonce/show.html.twig', [
             'annonce' => $annonce,
+            'conversationId' => $conversation,
         ]);
     }
 

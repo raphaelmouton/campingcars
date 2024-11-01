@@ -26,7 +26,7 @@ class ConversationController extends AbstractController
             return $this->redirectToRoute('app_login', [], Response::HTTP_SEE_OTHER);
 
         }
-        $envoyeur = $this->getUser()->getEmail();
+        $envoyeur = $this->getUser();
         $conversations = $conversationRepository->findConversations($envoyeur);
         // $countUnreadConversations = $conversationRepository->countUnreadConversations($this->getUser());
 

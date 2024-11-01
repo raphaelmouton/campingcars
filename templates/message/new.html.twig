@@ -6,32 +6,46 @@
 	<meta name="robots" content="noindex, nofollow">
 {% endblock %}
 {% block body %}
-	<div class="container compte no-image container-radius--padding">
-		{# read and display several types of flash messages #}
-		{% for label, messages in app.flashes(['success', 'danger']) %}
-			{% for message in messages %}
-				<div class="flash-{{ label }}">
-					<i class="fa-solid fa-circle-info"></i> {{ message }}
+    <div class="container-fluid container-colored conversations no-arrow">
+        <div class="container pt-5">
+            <div class="row p-0 m-0">
+                <div class="col-lg-6 col-md-4 col-sm-12 p-0 position-relative">
+					{% include "annonce/_card.html.twig" %}
+					{% if is_granted('ROLE_ADMIN') %}
+						<div class="mx-auto mt-2 p-2 text-sm">
+							<p class="text-center my-auto">Adresse mail du vendeur :<br> {{annonce.user.email}}</p>
+						</div>
+					{% endif %}
+					</div>
+					<div class="col-lg-6 col-md-8 col-sm-12 my-auto text-center">
+						<h1>Conversation pour cette annonce :</h1>
+						<h4>{{ annonce.Titre }}</h4>
+					</div>
 				</div>
-			{% endfor %}
-		{% endfor %}
-		<div class="row pt-3">
-			<div class="col-lg-6 offset-lg-1 col-md-12 my-auto">
+			</div>
+		</div>
+	
+	<div class="container-fluid pb-5 conversations">
+		<div class="container container-colored-light pb-5">
+			<div class="my-auto">
 				{% for message in messages %}
 					<p class="contact-message {% if message.envoyeur == app.user %}contact-color{% endif %}">Le
 						{{ message.PosteLe|format_datetime(locale='fr',pattern="dd MMMM YY")}}
 						{# {{dump(message)}} #}
-						<strong>{{ message.Envoyeur[:3] ~ '***' }}
+						<strong>{{ message.Envoyeur.email[:3] ~ '***' }}
 							a écrit :</strong><br>
 						{{ message.Contenu|nl2br }}</p>
 				{% else %}
 					<div class="row d-block mx-auto text-center">
-						<img src="{{asset('images/empty.png')}}" alt="pas encore de message"> <p class="text-center">Pas encore de message</p>
+						<img src="{{asset('images/refuel.png')}}" alt="pas encore de message"> <p class="text-center">Pas encore de message</p>
 					</div>
 				{% endfor %}
+
+
+
 				<div class="mt-5">
 					{{ include('message/_form.html.twig') }}
-					<div class="flash-warning text-white p-lg-5 p-sm-3 ml-0 mr-0">
+					<div class="bg-dark  text-white p-5 mt-5">
 						<p><i class="fa-solid fa-circle-info mr-1"></i> 
 							Chers utilisateurs,<br>
 							Nous souhaitons attirer votre attention sur quelques points importants à prendre en considération lors de vos échanges sur notre plateforme :</p>
@@ -73,17 +87,6 @@
 					</div>
 				</div>
 			</div>
-			<div class="col-lg-4 col-md-12">
-				<div class="contact-annonce">
-					{% include "annonces/_card.html.twig" %}
-					{% if is_granted('ROLE_ADMIN') %}
-						<div class="mx-auto mt-2 p-2 text-sm">
-							<p class="text-center my-auto">Adresse mail du vendeur :<br> {{annonce.user.email}}</p>
-						</div>
-					{% endif %}
-				</div>
-			</div>
 		</div>
 	</div>
-
 {% endblock %}

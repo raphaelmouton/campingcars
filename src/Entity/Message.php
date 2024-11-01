@@ -26,11 +26,13 @@ class Message
     #[ORM\ManyToOne(inversedBy: 'messages')]
     private ?Annonces $annonce = null;
 
-    #[ORM\Column(length: 255)]
-    private ?string $Envoyeur = null;
+    #[ORM\ManyToOne(targetEntity: User::class)]
+    #[ORM\JoinColumn(nullable: false)]
+    private ?User $Envoyeur = null;
 
-    #[ORM\Column(length: 255)]
-    private ?string $Receveur = null;
+    #[ORM\ManyToOne(targetEntity: User::class)]
+    #[ORM\JoinColumn(nullable: false)]
+    private ?User $Receveur = null;
 
     #[ORM\Column(type: Types::DATE_IMMUTABLE, nullable: true)]
     private ?\DateTimeInterface $PosteLe = null;
@@ -64,7 +66,7 @@ class Message
         return $this;
     }
 
-    public function getEnvoyeur(): ?string
+    public function getEnvoyeur(): ?User
     {
         return $this->Envoyeur;
     }
@@ -76,7 +78,7 @@ class Message
         return $this;
     }
 
-    public function getReceveur(): ?string
+    public function getReceveur(): ?User
     {
         return $this->Receveur;
     }

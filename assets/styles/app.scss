@@ -8,6 +8,7 @@
 @import "form";
 @import "btn";
 @import "pagination";
+@import "responsive";
 
 body {
     font-family: "Afacad", cursive;
@@ -45,9 +46,8 @@ body {
         content: "";
         display: block;
         right: 70px;
-        bottom: -40%;
+        bottom: -45%;
         transform: translate(100%, -50%);
-    
     }
 }
 
@@ -72,7 +72,6 @@ body {
         border-radius: 0;
         border-left: 0;
     }
-    
 }
 
 .container-colored {
@@ -119,6 +118,11 @@ body {
 h1, h2, h3, h4, h5, h6, strong {
     font-family: "Afacad-Bold", cursive;
     font-weight: 600;
+    word-break: break-word;
+}
+
+h1 {
+    font-size: clamp(1.5rem, 4vw + 1rem, 2.5rem) !important;
 }
 
 h2, h3 {
@@ -127,18 +131,25 @@ h2, h3 {
 
 strong {
     font-size: 2rem;
+    word-break: break-word;
 }
 
 p {
     font-size: 1.3rem;
     font-weight: 500;
+    word-break: break-word;
 }
 
 a {
     color: $orange;
+    word-break: break-word;
     &:hover {
         color: $white;
     }
+}
+
+.text-orange {
+    color: $orange;
 }
 
 .breadcrumb {
@@ -202,3 +213,7 @@ a:hover {
         z-index: 1000;
     }
 }
+
+
+
+
